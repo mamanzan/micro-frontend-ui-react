@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap");
+
+:root {
+  font-family: "Rubik", sans-serif;
+
+  --zano-gray: hsla(0, 0%, 60%, 1);
+  --zano-gray-light1: hsla(0, 0%, 80%, 1);
+  --animation-speed-05x: 1s;
+  --animation-speed-1x: 0.5s;
+  --animation-speed-2x: 0.2s;
+}
+
+.hello-world {
+  width: 500px;
+  height: 500px;
+
+  border: 1px solid var(--zano-gray);
+}
