@@ -12,17 +12,18 @@ export const LayoutSidebarMain = ({ sidebar, main }: DropdownProps) => {
 
   return (
     <div className="layout">
-      {isShowingSidebar && (
-        <>
-          <aside className="layout__sidebar">{sidebar}</aside>
-          <button
-            className="layout__hide-sidebar"
-            onClick={() => setIsShowingSidebar(false)}
-          >
-            <span className="oi" data-glyph="arrow-thick-left"></span>
-          </button>
-        </>
-      )}
+      <CSSTransition in={isShowingSidebar} timeout={500} classNames="move">
+        <aside className="layout__sidebar">{sidebar}</aside>
+      </CSSTransition>
+
+      <CSSTransition in={isShowingSidebar} timeout={500} classNames="move">
+        <button
+          className="layout__hide-sidebar"
+          onClick={() => setIsShowingSidebar(false)}
+        >
+          <span className="oi" data-glyph="arrow-thick-left"></span>
+        </button>
+      </CSSTransition>
 
       {!isShowingSidebar && (
         <button

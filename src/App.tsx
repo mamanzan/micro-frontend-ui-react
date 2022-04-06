@@ -1,24 +1,28 @@
 import { Switch, Route, Router, Link } from "react-router-dom";
 import { Button } from "./Button";
 import { HelloWorld } from "./pages/HelloWorld";
-import "./scss/.Global.scss";
+import { Components } from "./pages/Components";
 import "open-iconic/font/css/open-iconic.scss";
 
-
-const helloReact = () => <div>Hello React!</div>;
+import { LayoutSidebarMain } from "./components/LayoutSidebarMain";
+import { Sidebar } from "./components/Sidebar";
+import { Main } from "./pages/Main";
+const helloReact = () => <div>Hello React ummm!</div>;
 
 export default ({ history }: any) => {
   return (
     <div>
       <Router history={history}>
-        <br />
-        <Link to="/react">Say hello to React!</Link>
-        <br />
-        <Link to="/">Say hello to the World!</Link>
-        <Switch>
-          <Route path="/react" component={helloReact} />
-          <Route path="/" component={HelloWorld} />
-        </Switch>
+        <LayoutSidebarMain
+          sidebar={<Sidebar />}
+          main={
+            <Switch>
+              <Route path="/react" component={helloReact} />
+              <Route path="/components/:type" component={Components} />
+              <Route path="/" component={Main} />
+            </Switch>
+          }
+        />
       </Router>
     </div>
   );

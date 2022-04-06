@@ -1,6 +1,5 @@
 .dropdown {
   border: 1px solid var(--zano-gray);
-  border-radius: 0.2rem;
   position: relative;
   margin: 1rem;
 }
@@ -10,6 +9,7 @@
 .dropdown__selected-item {
   display: flex;
   padding: 4px;
+  background-color: white;
 }
 .dropdown__selected-text {
   margin-right: auto;
@@ -22,7 +22,8 @@
   left: -1px;
   width: 100%;
   border: 1px solid var(--zano-gray);
-  border-radius: 0.2rem;
+  background-color: white;
+  box-shadow: var(--zano-shadow);
 
   border-top: none;
   padding: 0;

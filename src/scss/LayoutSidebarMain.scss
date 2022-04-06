@@ -1,38 +1,35 @@
 .layout {
-  //width: 100%;
-  //height: 100vh;
-  width: inherit;
-  height: inherit;
-  display: flex;
-  position: relative;
-
   &__sidebar {
-    position: absolute;
-    height: inherit;
-    background-color: hsla(0, 100%, 100%, 0.95);
-    width: 16rem;
+    &.move-enter-active,
+    &.move-exit-active {
+      transition: all 0.5s ease;
+    }
+    &.move-exit-active,
+    &.move-exit-done,
+    &.move-enter {
+      transform: translateX(-16rem);
+    }
 
-    border-right: 1px solid var(--zano-gray);
-  }
-
-  &__hide-sidebar,
-  &__show-sidebar {
-    position: absolute;
-    top: 1rem;
+    &.move-enter-active,
+    &.move-enter-done {
+      transform: translateX(0);
+    }
   }
 
   &__hide-sidebar {
-    transform: translateX(16rem);
-  }
+    &.move-enter-active,
+    &.move-exit-active {
+      transition: all 0.5s ease;
+    }
+    &.move-exit-active,
+    &.move-exit-done,
+    &.move-enter {
+      transform: translateX(1rem);
+    }
 
-  &__show-sidebar {
-    transform: translateX(1rem);
-  }
-
-  &__main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 1;
+    &.move-enter-active,
+    &.move-enter-done {
+      transform: translateX(16rem);
+    }
   }
 }
