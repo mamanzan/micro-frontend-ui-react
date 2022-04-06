@@ -1,4 +1,4 @@
-import { Toggle } from "../components/Toggle";
+import { Toggle } from "../components/toggles/Toggle";
 import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
 
 const onSelect = (value: string, e: any) => {
