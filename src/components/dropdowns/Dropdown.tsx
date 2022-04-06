@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group"; // ES6
-import "../scss/Dropdown.scss";
+import "../../scss/Dropdown.scss";
 
 type DropdownProps = {
   onSelectItem: (item: string) => void;
@@ -8,14 +8,9 @@ type DropdownProps = {
   name?: string;
 };
 
-export const DropdownCheckbox = ({
-  onSelectItem,
-  items,
-  name,
-}: DropdownProps) => {
+export const Dropdown = ({ onSelectItem, items, name }: DropdownProps) => {
   const [defaultName, setDefaultName] = useState(name);
   const [selectedItem, setSelectedItem] = useState("Dropdown");
-  const [allItems, setAllItems] = useState(items);
   const [isShowingItems, setIsShowingItems] = useState(false);
 
   const toggleItems = () => {
@@ -29,8 +24,6 @@ export const DropdownCheckbox = ({
     setSelectedItem(innerText);
     onSelectItem(innerText);
   };
-
-  const toggleItem = (e: React.MouseEvent<HTMLUListElement, MouseEvent>) => {};
 
   const onEnterTest = (e: any) => {};
 
@@ -51,10 +44,9 @@ export const DropdownCheckbox = ({
         classNames="my-node"
         onEnter={onEnterTest}
       >
-        <ul className="dropdown__list">
-          {allItems.map((item: string) => (
+        <ul className="dropdown__list" onClick={(e) => selectItem(e)}>
+          {items.map((item: string) => (
             <li className="dropdown__list-item" key={item}>
-              <input type="checkbox" />
               {item}
             </li>
           ))}

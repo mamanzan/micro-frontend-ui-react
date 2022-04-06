@@ -1,4 +1,4 @@
-import { Dropdown } from "../components/Dropdown";
+import { Dropdown } from "../components/dropdowns/Dropdown";
 import { LayoutSidebarMain } from "../components/LayoutSidebarMain";
 import { Sidebar } from "../components/Sidebar";
 

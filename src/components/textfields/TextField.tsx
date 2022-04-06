@@ -18,27 +18,23 @@ export const TextField = ({ placeholder }: InputClearProps) => {
     inputRef.current.focus();
   };
 
-  const ic = "input-clear";
+  const tf = "text-field";
   return (
-    <div className={ic}>
-      <div className="input-group">
-        <input
-          type="text"
-          className={`${ic}__input form-control`}
-          ref={inputRef}
-          placeholder={placeholder}
-          value={state.inputText}
-          onChange={updateValue.bind(this)}
-        />
-      </div>
-      {state.showClear ? (
-        <button
-          className={`${ic}__clear btn btn-sm btn-secondary`}
-          onClick={clear}
-        >
-          <i className={`intelicon-close-max`} />
+    <div className={tf}>
+      <input
+        type="text"
+        className={`${tf}__input`}
+        ref={inputRef}
+        placeholder={placeholder}
+        value={state.inputText}
+        onChange={updateValue.bind(this)}
+      />
+
+      {state.showClear && (
+        <button className={`${tf}__clear`} onClick={clear}>
+          <span className="oi" data-glyph="x"></span>
         </button>
-      ) : null}
+      )}
     </div>
   );
 };

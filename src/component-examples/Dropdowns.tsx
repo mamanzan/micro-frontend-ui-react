@@ -1,5 +1,5 @@
-import { Dropdown } from "../components/Dropdown";
-import { DropdownCheckbox } from "../components/DropdownCheckbox";
+import { Dropdown } from "../components/dropdowns/Dropdown";
+import { DropdownCheckbox } from "../components/dropdowns/DropdownCheckbox";
 import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
 
 export const Dropdowns: IComponentExampleConfiguration[] = [

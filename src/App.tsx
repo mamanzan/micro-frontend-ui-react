@@ -1,6 +1,4 @@
 import { Switch, Route, Router, Link } from "react-router-dom";
-import { Button } from "./Button";
-import { HelloWorld } from "./pages/HelloWorld";
 import { Components } from "./pages/Components";
 import "open-iconic/font/css/open-iconic.scss";
 
@@ -17,9 +15,8 @@ export default ({ history }: any) => {
           sidebar={<Sidebar />}
           main={
             <Switch>
-              <Route path="/react" component={helloReact} />
-              <Route path="/components/:type" component={Components} />
-              <Route path="/" component={Main} />
+              <Route path="/react/components/:type" component={Components} />
+              <Route path="/react" component={Main} />
             </Switch>
           }
         />

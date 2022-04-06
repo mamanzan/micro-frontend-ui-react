@@ -34,26 +34,31 @@ export const Components = () => {
   let { type } = useParams<ComponentRouteParams>();
 
   let examples: IComponentExampleConfiguration[] = [];
+  let humanizeTitle: string = "";
 
   switch (type) {
     case "textfields":
       examples = TextFields;
+      humanizeTitle = "Text Fields";
       break;
     case "toggles":
       examples = Toggles;
+      humanizeTitle = "Toggles";
       break;
     case "dropdowns":
     default:
       examples = Dropdowns;
+      humanizeTitle = "Dropdowns";
       break;
   }
 
   return (
     <div className="components">
-      <h1 className="components__title">{type}</h1>
+      <h1 className="components__title">{humanizeTitle}</h1>
       <div className="components__examples">
         {examples.map((dropdown: IComponentExampleConfiguration) => (
           <Card
+            key={dropdown.title}
             component={dropdown.jsx}
             description={dropdown.description}
             title={dropdown.title}

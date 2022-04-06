@@ -6,16 +6,16 @@ interface IRouteLink {
   name: string;
 }
 const routes: IRouteLink[] = [
-  { name: "Dropdowns", route: "/components/dropdown" },
-  { name: "Text Fields", route: "/components/textfields" },
-  { name: "Toggles", route: "/components/toggles" },
+  { name: "Dropdowns", route: "/react/components/dropdown" },
+  { name: "Text Fields", route: "/react/components/textfields" },
+  { name: "Toggles", route: "/react/components/toggles" },
 ];
 export const Sidebar = () => (
   <nav className="sidebar">
     <h1 className="sidebar__title">Components</h1>
     <ol className="sidebar__list">
       {routes.map((route: IRouteLink) => (
-        <li className="sidebar__list-item">
+        <li className="sidebar__list-item" key={route.name}>
           <Link to={route.route}>{route.name}</Link>
         </li>
       ))}
