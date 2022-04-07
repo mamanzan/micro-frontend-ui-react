@@ -3,7 +3,7 @@ name: deploy
 on:
   push:
     branches:
-      - master
+      - main
 
 # env:
 #   PRODUCTION_DOMAIN: ${{ secrets.PRODUCTION_DOMAIN }}
