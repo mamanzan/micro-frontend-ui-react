@@ -23,10 +23,10 @@ const devConfig = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "helloReact",
+      name: "react",
       filename: "remoteEntry.js",
       exposes: {
-        "./HelloReactApp": "./src/bootstrap",
+        "./ReactApp": "./src/bootstrap",
       },
       shared: packageJson.dependencies,
     }),
