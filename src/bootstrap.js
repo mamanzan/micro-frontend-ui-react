@@ -6,7 +6,7 @@ import { createBrowserHistory } from "history";
 //TODO: Somehow check if the styles are already existent so that they
 //are not duplicated by the below include when running under the
 //container.
-import "styles/dist/main";
+//import "styles/dist/main";
 
 const mount = (el) => {
   const history = createBrowserHistory();
