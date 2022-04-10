@@ -30,11 +30,14 @@ export const TextField = ({ placeholder }: InputClearProps) => {
         onChange={updateValue.bind(this)}
       />
 
-      {state.showClear && (
-        <button className={`${tf}__clear`} onClick={clear}>
-          <span className="oi" data-glyph="x"></span>
-        </button>
-      )}
+      <button
+        className={`${tf}__clear ${
+          state.showClear ? tf + "__clear--show" : tf + "__clear--hide"
+        }`}
+        onClick={clear}
+      >
+        <span className="oi" data-glyph="x"></span>
+      </button>
     </div>
   );
 };
