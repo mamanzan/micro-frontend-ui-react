@@ -6,7 +6,7 @@ interface InputClearProps {
 
 export const TextField = ({ placeholder }: InputClearProps) => {
   const inputRef = useRef(null);
-  const [state, setState] = useState({ inputText: "", showClear: false });
+  const [state, setState] = useState({ inputText: "", showClear: null });
 
   const updateValue = (event: Event) => {
     const value = (event.target as any).value.toLowerCase();
@@ -16,6 +16,11 @@ export const TextField = ({ placeholder }: InputClearProps) => {
   const clear = () => {
     setState({ inputText: "", showClear: false });
     inputRef.current.focus();
+  };
+
+  const visibilityClass = (): string => {
+    if (state.showClear != null)
+      return state.showClear ? `${tf}__clear--show` : `${tf}__clear--hide`;
   };
 
   const tf = "text-field";
@@ -30,12 +35,7 @@ export const TextField = ({ placeholder }: InputClearProps) => {
         onChange={updateValue.bind(this)}
       />
 
-      <button
-        className={`${tf}__clear ${
-          state.showClear ? tf + "__clear--show" : tf + "__clear--hide"
-        }`}
-        onClick={clear}
-      >
+      <button className={`${tf}__clear ${visibilityClass()}`} onClick={clear}>
         <span className="oi" data-glyph="x"></span>
       </button>
     </div>
