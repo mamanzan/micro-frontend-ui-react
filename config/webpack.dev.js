@@ -28,6 +28,9 @@ const devConfig = {
       exposes: {
         "./ReactApp": "./src/bootstrap",
       },
+      remotes: {
+        styles: "styles@http://localhost:8083/remoteEntry.js",
+      },
       shared: packageJson.dependencies,
     }),
     new HtmlWebpackPlugin({

@@ -3,10 +3,9 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { createBrowserHistory } from "history";
 
-//TODO: Somehow check if the styles are already existent so that they
-//are not duplicated by the below include when running under the
-//container.
-import "styles/dist/main";
+//Import styles from the remote,  doesn't look like this duplicates
+//the styles per framework
+import "styles/StylesApp";
 
 const mount = (el) => {
   const history = createBrowserHistory();
