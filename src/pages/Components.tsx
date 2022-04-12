@@ -6,7 +6,6 @@ import { Dropdowns } from "../component-examples/Dropdowns";
 import { TextFields } from "../component-examples/TextFields";
 import { Toggles } from "../component-examples/Toggles";
 import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
-import "../scss/Components.scss";
 
 interface ComponenProps {
   description: string;

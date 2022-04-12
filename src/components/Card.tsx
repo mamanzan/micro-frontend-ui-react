@@ -1,5 +1,3 @@
-import "../scss/Card.scss";
-
 interface CardProps {
   component: JSX.Element;
   description: string;

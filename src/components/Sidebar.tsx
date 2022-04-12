@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "../scss/Sidebar.scss";
 
 interface IRouteLink {
   route: string;

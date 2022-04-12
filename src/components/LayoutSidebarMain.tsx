@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group"; // ES6
-import "../scss/LayoutSidebarMain.scss";
 
 type DropdownProps = {
   sidebar: JSX.Element;

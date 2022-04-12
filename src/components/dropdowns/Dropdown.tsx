@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group"; // ES6
-import "../../scss/Dropdown.scss";
 
 type DropdownProps = {
   onSelectItem: (item: string) => void;

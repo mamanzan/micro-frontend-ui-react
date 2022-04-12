@@ -1,5 +1,3 @@
-import "../scss/Main.scss";
-
 export const Main = () => {
   return (
     <section className="main">

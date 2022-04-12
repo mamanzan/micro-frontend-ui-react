@@ -6,7 +6,7 @@ export const TextFields: IComponentExampleConfiguration[] = [
   {
     description: "Basic text field input",
     jsx: <TextField placeholder="Enter Search Term" />,
-    title: "Basic1",
+    title: "Basic",
   },
 
   {
@@ -18,20 +18,5 @@ export const TextFields: IComponentExampleConfiguration[] = [
       />
     ),
     title: "Search ahead",
-  },
-  {
-    description: "Basic text field input",
-    jsx: <TextField placeholder="Enter Search Term" />,
-    title: "Basic3",
-  },
-  {
-    description: "Basic text field input",
-    jsx: <TextField placeholder="Enter Search Term" />,
-    title: "Basic4",
-  },
-  {
-    description: "Basic text field input",
-    jsx: <TextField placeholder="Enter Search Term" />,
-    title: "Basic5",
   },
 ];
