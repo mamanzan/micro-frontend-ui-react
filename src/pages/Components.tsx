@@ -51,6 +51,7 @@ export const Components = () => {
       break;
   }
 
+  console.log(`Type: ${type}`);
   return (
     <div className="components">
       <h1 className="components__title">{humanizeTitle}</h1>

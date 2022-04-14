@@ -3,18 +3,20 @@ import { CSSTransition } from "react-transition-group"; // ES6
 import { IItem } from "../../interface/interface";
 
 interface DropdownProps<T> {
-  children?: (item: T) => React.ReactNode;
+  children?: (item: T) => JSX.Element;
   onSelectItem: (item: T) => void;
   items: T[];
   name: string;
 }
 
 export const Dropdown = <T extends IItem>({
+  children,
   onSelectItem,
   items,
   name,
-  children,
 }: DropdownProps<T>) => {
+  const dd: string = "dropdown";
+
   const [defaultName, setDefaultName] = useState(name);
   const [selectedItem, setSelectedItem] = useState("Dropdown");
   const [isShowingItems, setIsShowingItems] = useState(false);
@@ -31,38 +33,20 @@ export const Dropdown = <T extends IItem>({
     onSelectItem(innerText);
   };
 
-  const onEnterTest = (e: any) => {};
-
   return (
-    <div className="dropdown" onClick={toggleItems}>
-      <div className="dropdown__selected-item">
-        <span className="dropdown__selected-text">
+    <div className={dd} onClick={toggleItems}>
+      <div className={`${dd}__selected-item`}>
+        <span className={`${dd}__selected-text`}>
           {defaultName ? defaultName : selectedItem}
         </span>
-        <span className="dropdown__caret oi" data-glyph="caret-bottom"></span>
+        <span className={`${dd}__caret oi`} data-glyph="caret-bottom"></span>
       </div>
 
-      {/* <CSSTransition
-        mountOnEnter={true}
-        unmountOnExit={true}
-        in={isShowingItems}
-        timeout={500}
-        classNames="my-node"
-        onEnter={onEnterTest}
-      >
-        <ul className="dropdown__list" onClick={(e) => selectItem(e)}>
-          {items.map((item: string) => (
-            <li className="dropdown__list-item" key={item}>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </CSSTransition> */}
       {isShowingItems && (
-        <ul className="dropdown__list" onClick={(e) => selectItem(e)}>
+        <ul className={`${dd}__list`} onClick={(e) => selectItem(e)}>
           {items.map((item: T) => (
-            <li className="dropdown__list-item" key={item.id}>
-              {children ? children(item) : item.id}
+            <li className={`${dd}__list-item`} key={`${item.id}-${item.value}`}>
+              {children ? children(item) : item.value}
             </li>
           ))}
         </ul>

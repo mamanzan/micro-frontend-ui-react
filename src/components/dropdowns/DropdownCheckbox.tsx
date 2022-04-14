@@ -1,24 +1,25 @@
 import { useCallback, useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group"; // ES6
-import { IItemCheckbox } from "../../interface/interface";
+import { IItem, IItemCheckbox } from "../../interface/interface";
 
-type DropdownProps = {
-  onSelectItem: (item: string) => void;
-  items: IItemCheckbox[];
-  name?: string;
-};
+interface DropdownCheckboxProps<T> {
+  children?: (item: T) => JSX.Element;
+  onSelectItem: (item: T) => void;
+  items: T[];
+  name: string;
+}
 
-export const DropdownCheckbox = ({
+export const DropdownCheckbox = <T extends IItemCheckbox>({
+  children,
   onSelectItem,
   items,
   name,
-}: DropdownProps) => {
+}: DropdownCheckboxProps<T>) => {
   const ddcb = "dropdown-checkbox";
   const [defaultName, setDefaultName] = useState(name);
   const [selectedItem, setSelectedItem] = useState("Dropdown");
   const [allItems, setAllItems] = useState(items);
   const [isShowingItems, setIsShowingItems] = useState(false);
-  const _this = this;
 
   const closeDropdown = (event: MouseEvent) => {
     //Very curious that you get here twice, If you click on the label you get
@@ -65,7 +66,7 @@ export const DropdownCheckbox = ({
       </div>
       {isShowingItems && (
         <ul className={`${ddcb}__list`}>
-          {allItems.map((item: IItemCheckbox) => (
+          {allItems.map((item: T) => (
             <li className={`${ddcb}__list-item`} key={item.id}>
               <input
                 type="checkbox"
@@ -79,7 +80,7 @@ export const DropdownCheckbox = ({
                 className={`${ddcb}__checkbox-label`}
                 htmlFor={`${item.value}`}
               >
-                {item.value}
+                {children ? children(item) : item.value}
               </label>
             </li>
           ))}
