@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group"; // ES6
-import { IItemCheckbox } from "../../../interface/interface";
+import { IItemCheckbox } from "../../interface/interface";
 
 type DropdownProps = {
   onSelectItem: (item: string) => void;

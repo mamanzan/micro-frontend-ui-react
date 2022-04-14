@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group"; // ES6
 import { IItem } from "../../interface/interface";
 
-interface DropdownProps<T> {
-  children?: (item: T) => React.ReactNode;
+interface DropdownCustomProps<T> {
+  children: (item: T) => JSX.Element;
   onSelectItem: (item: T) => void;
   items: T[];
   name: string;
 }
 
-export const Dropdown = <T extends IItem>({
+export const DropdownCustom = <T extends IItem>({
+  children,
   onSelectItem,
   items,
   name,
-  children,
-}: DropdownProps<T>) => {
+}: DropdownCustomProps<T>) => {
   const [defaultName, setDefaultName] = useState(name);
   const [selectedItem, setSelectedItem] = useState("Dropdown");
   const [isShowingItems, setIsShowingItems] = useState(false);
@@ -42,27 +42,11 @@ export const Dropdown = <T extends IItem>({
         <span className="dropdown__caret oi" data-glyph="caret-bottom"></span>
       </div>
 
-      {/* <CSSTransition
-        mountOnEnter={true}
-        unmountOnExit={true}
-        in={isShowingItems}
-        timeout={500}
-        classNames="my-node"
-        onEnter={onEnterTest}
-      >
-        <ul className="dropdown__list" onClick={(e) => selectItem(e)}>
-          {items.map((item: string) => (
-            <li className="dropdown__list-item" key={item}>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </CSSTransition> */}
       {isShowingItems && (
         <ul className="dropdown__list" onClick={(e) => selectItem(e)}>
           {items.map((item: T) => (
             <li className="dropdown__list-item" key={item.id}>
-              {children ? children(item) : item.id}
+              {children(item)}
             </li>
           ))}
         </ul>

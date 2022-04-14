@@ -1,4 +1,4 @@
-import { IItemCheckboxCustom } from "../../../interface/interface";
+import { IItemCheckboxCustom } from "../../interface/interface";
 
 export const DropdownTemplate = (item: IItemCheckboxCustom) => {
   return <div>{item.stuff}</div>;
