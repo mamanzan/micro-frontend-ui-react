@@ -50,7 +50,7 @@ export const Dropdowns: IComponentExampleConfiguration[] = [
           console.log(item);
         }}
       >
-        {(item: IFruitItem) => <Fruit icon={item.icon} value={item.value} />}
+        {(item: IFruitItem) => <Fruit {...item} />}
       </Dropdown>
     ),
     title: "Custom Items",
@@ -78,14 +78,7 @@ export const Dropdowns: IComponentExampleConfiguration[] = [
           console.log("h");
         }}
       >
-        {(item: IFruitItemCheckbox) => (
-          <FruitDetails
-            icon={item.icon}
-            name={item.value.toString()}
-            price={0}
-            quantity={0}
-          />
-        )}
+        {(item: IFruitItemCheckbox) => <FruitDetails {...item} />}
       </DropdownCheckbox>
     ),
     title: "Checkboxes w/Custom Render",

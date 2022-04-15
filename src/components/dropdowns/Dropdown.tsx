@@ -21,7 +21,20 @@ export const Dropdown = <T extends IItem>({
   const [selectedItem, setSelectedItem] = useState("Dropdown");
   const [isShowingItems, setIsShowingItems] = useState(false);
 
-  const toggleItems = () => {
+  const closeDropdown = (event: MouseEvent) => {
+    const result = (event.target as any).closest(`.${dd}__list`);
+    if (result !== null) return; //meaning you clicked inside the list
+    document.removeEventListener("click", closeDropdown, true);
+    setIsShowingItems(false);
+  };
+
+  const toggleItems = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    // setIsShowingItems(!isShowingItems);
+    const isItemClicked =
+      (e.target as any).closest(`.${dd}__list-item`) !== null;
+    if (isItemClicked) return;
+
+    document.addEventListener("click", closeDropdown, true);
     setIsShowingItems(!isShowingItems);
   };
 
