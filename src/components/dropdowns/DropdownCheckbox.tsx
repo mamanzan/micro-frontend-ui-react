@@ -1,20 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group"; // ES6
 import { IItem, IItemCheckbox } from "../../interface/interface";
-
-interface DropdownCheckboxProps<T> {
-  children?: (item: T) => JSX.Element;
-  onSelectItem: (item: T) => void;
-  items: T[];
-  name: string;
-}
+import { IDropdownProps } from "../../interface/Props";
 
 export const DropdownCheckbox = <T extends IItemCheckbox>({
   children,
   onSelectItem,
   items,
   name,
-}: DropdownCheckboxProps<T>) => {
+}: IDropdownProps<T>) => {
   const ddcb = "dropdown-checkbox";
   const [defaultName, setDefaultName] = useState(name);
   const [selectedItem, setSelectedItem] = useState("Dropdown");

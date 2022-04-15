@@ -15,24 +15,16 @@ import {
 } from "../models/Fruits";
 import { Fruit } from "../template/Fruit";
 import { FruitDetails } from "../template/FruitDetails";
+import { randomizeIds } from "../utils/RandomizeIds";
 
-//TODO: Fix warning about key not being unique
-const randomizeIds = <T extends IItem>(items: T[]): T[] => {
-  const result = items.map((item: T) => ({
-    ...item,
-    id: Math.floor(Math.random() * 1000000000),
-  }));
-  console.log(result);
-  return [...result];
-};
-
+const defaultMessage = "Select a fruit";
 export const Dropdowns: IComponentExampleConfiguration[] = [
   {
     description: "Classic dropdown",
     jsx: (
       <Dropdown
         items={randomizeIds(fruitItems)}
-        name={"Hello"}
+        name={defaultMessage}
         onSelectItem={() => {
           console.log("h");
         }}
@@ -45,7 +37,7 @@ export const Dropdowns: IComponentExampleConfiguration[] = [
     jsx: (
       <Dropdown
         items={randomizeIds(fruitItems)}
-        name={"Hello"}
+        name={defaultMessage}
         onSelectItem={(item: IFruitItem) => {
           console.log(item);
         }}
@@ -60,9 +52,9 @@ export const Dropdowns: IComponentExampleConfiguration[] = [
     jsx: (
       <DropdownCheckbox
         items={fruitItemCheckboxes}
-        name={"Hello"}
-        onSelectItem={() => {
-          console.log("h");
+        name={defaultMessage}
+        onSelectItem={(item: IFruitItemCheckbox) => {
+          console.log(item);
         }}
       />
     ),
@@ -73,9 +65,9 @@ export const Dropdowns: IComponentExampleConfiguration[] = [
     jsx: (
       <DropdownCheckbox
         items={fruitItemCheckboxes}
-        name={"Hello"}
-        onSelectItem={() => {
-          console.log("h");
+        name={defaultMessage}
+        onSelectItem={(item: IFruitItemCheckbox) => {
+          console.log(item);
         }}
       >
         {(item: IFruitItemCheckbox) => <FruitDetails {...item} />}

@@ -1,20 +1,14 @@
 import { useEffect, useState } from "react";
 import { CSSTransition } from "react-transition-group"; // ES6
 import { IItem } from "../../interface/interface";
-
-interface DropdownProps<T> {
-  children?: (item: T) => JSX.Element;
-  onSelectItem: (item: T) => void;
-  items: T[];
-  name: string;
-}
+import { IDropdownProps } from "../../interface/Props";
 
 export const Dropdown = <T extends IItem>({
   children,
   onSelectItem,
   items,
   name,
-}: DropdownProps<T>) => {
+}: IDropdownProps<T>) => {
   const dd: string = "dropdown";
 
   const [defaultName, setDefaultName] = useState(name);

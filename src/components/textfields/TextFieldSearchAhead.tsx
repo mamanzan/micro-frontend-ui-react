@@ -1,14 +1,12 @@
 import { useState, useCallback, useRef } from "react";
+import { IItem } from "../../interface/interface";
+import { ITextFieldProps } from "../../interface/Props";
 
-interface TextFieldSearchAheadProps {
-  items: string[];
-  placeholder: string;
-}
-
-const TextFieldSearchAhead = ({
+const TextFieldSearchAhead = <T extends IItem>({
   items,
   placeholder,
-}: TextFieldSearchAheadProps) => {
+  children,
+}: ITextFieldProps<T>) => {
   const tfsa = "text-field-search-ahead";
   const isCheckingForEvents = useRef(false);
   const [filteredItems, setFilteredItems] = useState(items);
@@ -16,14 +14,14 @@ const TextFieldSearchAhead = ({
   const [showList, setShowList] = useState(false);
 
   const eventCleanup = useCallback(
-    (val) => {
+    (item: T) => {
       //document.removeEventListener("click", hide, true);
       //document.removeEventListener("keydown", navigation, true);
       isCheckingForEvents.current = false;
 
       setFilteredItems(items);
       setShowList(false);
-      setValue(val ? val : "");
+      setValue(item ? item.value.toString() : "");
     },
     [items]
   );
@@ -83,7 +81,7 @@ const TextFieldSearchAhead = ({
 
     if (searchTerm.length > 0) {
       const updatedItems = items.filter(
-        (item) => item.toLowerCase().indexOf(searchTerm) >= 0
+        (item) => (item.value as string).toLowerCase().indexOf(searchTerm) >= 0
       );
 
       if (isCheckingForEvents.current === false) {
@@ -100,7 +98,7 @@ const TextFieldSearchAhead = ({
     }
   };
 
-  const select = (item: string) => {
+  const select = (item: T) => {
     eventCleanup(item);
   };
 
@@ -120,11 +118,11 @@ const TextFieldSearchAhead = ({
         {filteredItems.map((item) => {
           return (
             <button
-              key={item}
+              key={item.id}
               className={`${tfsa}__list-item`}
               onClick={select.bind(this, item)}
             >
-              {item}
+              {children ? children(item) : item.value}
             </button>
           );
         })}
