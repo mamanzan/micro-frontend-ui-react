@@ -5,19 +5,19 @@ import { fruitItems, IFruitItem } from "../models/Fruits";
 import { Fruit } from "../template/Fruit";
 import { randomizeIds } from "../utils/RandomizeIds";
 
-const onSelect = (value: IItem) => {
+const onSelect = (value: IFruitItem) => {
   console.log("Value from toggle", value);
 };
 export const Toggles: IComponentExampleConfiguration[] = [
   {
     description: "Basic text field input",
-    jsx: <Toggle onSelect={onSelect} options={randomizeIds(fruitItems)} />,
+    jsx: <Toggle onSelectItem={onSelect} items={randomizeIds(fruitItems)} />,
     title: "Basic",
   },
   {
     description: "Customized Layout",
     jsx: (
-      <Toggle onSelect={onSelect} options={randomizeIds(fruitItems)}>
+      <Toggle onSelectItem={onSelect} items={randomizeIds(fruitItems)}>
         {(item: IFruitItem) => <Fruit {...item} />}
       </Toggle>
     ),
@@ -26,7 +26,7 @@ export const Toggles: IComponentExampleConfiguration[] = [
   {
     description: "So many fruits!",
     jsx: (
-      <Toggle onSelect={onSelect} options={randomizeIds(fruitItems)}>
+      <Toggle onSelectItem={onSelect} items={randomizeIds(fruitItems)}>
         {(item: IFruitItem) => <span>{item.icon}</span>}
       </Toggle>
     ),

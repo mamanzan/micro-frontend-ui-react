@@ -6,6 +6,6 @@ export const randomizeIds = <T extends IItem>(items: T[]): T[] => {
     ...item,
     id: Math.floor(Math.random() * 1000000000),
   }));
-  console.log(result);
+
   return [...result];
 };

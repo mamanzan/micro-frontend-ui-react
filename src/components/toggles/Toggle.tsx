@@ -3,29 +3,29 @@ import { IItem } from "../../interface/interface";
 import { IToggleProps } from "../../interface/Props";
 
 export const Toggle = <T extends IItem>({
-  onSelect,
+  onSelectItem,
   children,
-  options,
+  items,
 }: IToggleProps<T>) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const select = (option: T) => {
     setSelectedOption(option.value);
-    onSelect(option);
+    onSelectItem(option);
   };
 
   return (
     <div className="toggles" role="group" aria-label="Basic example">
-      {options.map((option: T) => (
+      {items.map((item: T) => (
         <button
           className={`toggles__option ${
-            selectedOption === option.value ? "toggles__option--active" : ""
+            selectedOption === item.value ? "toggles__option--active" : ""
           }`}
-          key={option.id}
-          onClick={select.bind(this, option)}
-          data-cy={option}
+          key={item.id}
+          onClick={select.bind(this, item)}
+          data-cy={item}
         >
-          {children ? children(option) : option.value}
+          {children ? children(item) : item.value}
         </button>
       ))}
     </div>
