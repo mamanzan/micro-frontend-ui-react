@@ -159,6 +159,7 @@ export const Table = <T extends unknown>({ columns, rows }: ITableProps<T>) => {
   return (
     <>
       <table className="table">
+        <caption className="table__caption">Title</caption>
         <TableColumns columns={allColumns} sort={sort} />
         <TableRows rows={allRows} />
       </table>

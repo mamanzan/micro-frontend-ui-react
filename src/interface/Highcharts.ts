@@ -1,8 +1,13 @@
-export interface IHighchartsDonutValues {
-  values: Map<string, [string, number] | Highcharts.PointOptionsObject>;
+export interface IHighchartsDonutProps {
+  data: Map<string, [string, number] | Highcharts.PointOptionsObject>;
+  height?: number;
+  width?: number; //by default will fit into parent container, only set if you want explicit height
+  title?: string;
 }
-export const defaultHighchartsDonutValues: IHighchartsDonutValues = {
-  values: new Map(),
+export const defaultHighchartsDonutProps: IHighchartsDonutProps = {
+  data: new Map(),
+  height: null,
+  title: "<Title>",
 };
 
 export enum HighchartsLineBarType {
