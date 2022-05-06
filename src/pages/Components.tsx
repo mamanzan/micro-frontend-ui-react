@@ -6,6 +6,7 @@ import { Dropdowns } from "../component-examples/Dropdowns";
 import { TextFields } from "../component-examples/TextFields";
 import { Toggles } from "../component-examples/Toggles";
 import { Tables } from "../component-examples/Tables";
+import { Highcharts } from "../component-examples/Highcharts";
 import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
 
 interface ComponenProps {
@@ -48,6 +49,10 @@ export const Components = () => {
     case "tables":
       examples = Tables;
       humanizeTitle = "Tables";
+      break;
+    case "highcharts":
+      examples = Highcharts;
+      humanizeTitle = "Highcharts";
       break;
     case "dropdowns":
     default:

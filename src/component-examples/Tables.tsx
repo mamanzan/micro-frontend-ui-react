@@ -16,7 +16,12 @@ const defaultMessage = "Select a fruit";
 
 let fruits = randomizeIds(fruitItems);
 let columns = Object.entries(fruits[0]).map(([key]) => {
-  return { name: key, sort: SortDirection.NONE, type: "string" };
+  return {
+    name: key,
+    displayName: key.charAt(0).toUpperCase() + key.slice(1),
+    sort: SortDirection.NONE,
+    type: "string",
+  };
 }) as ITableColumn[];
 
 //type columns = keyof IFruitItem;
@@ -40,10 +45,25 @@ let fruitsSmall = randomizeIds(fruitItems).map((fruit: IFruitItem) => {
 //   return { name: key, sort: SortDirection.ASCENDING, type: "string" };
 // }) as ITableColumn[];
 let fruitsSmallColumn: ITableColumn[] = [
-  { name: "id", sort: SortDirection.NONE, type: "int" },
-  { name: "name", sort: SortDirection.NONE, type: "string" },
-  { name: "price", sort: SortDirection.NONE, type: "float" },
-  { name: "icon", sort: SortDirection.NONE, type: "string" },
+  { name: "id", displayName: "ID", sort: SortDirection.NONE, type: "int" },
+  {
+    name: "name",
+    displayName: "Name",
+    sort: SortDirection.NONE,
+    type: "string",
+  },
+  {
+    name: "price",
+    displayName: "Price",
+    sort: SortDirection.NONE,
+    type: "float",
+  },
+  {
+    name: "icon",
+    displayName: "Icon",
+    sort: SortDirection.NONE,
+    type: "string",
+  },
 ];
 let fruitsSmallRows = new Map<number, any>();
 fruitsSmall.forEach((fruit) => {

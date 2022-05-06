@@ -9,6 +9,7 @@ const routes: IRouteLink[] = [
   { name: "Text Fields", route: "/react/components/textfields" },
   { name: "Toggles", route: "/react/components/toggles" },
   { name: "Tables", route: "/react/components/tables" },
+  { name: "Highcharts", route: "/react/components/highcharts" },
 ];
 export const Sidebar = () => (
   <nav className="sidebar">
