@@ -78,12 +78,18 @@ fruitsSmall.forEach((fruit) => {
 export const Tables: IComponentExampleConfiguration[] = [
   {
     description: "Simple table",
-    jsx: <Table columns={columns} rows={rows} />,
+    jsx: <Table canEdit={true} columns={columns} rows={rows} />,
     title: "Basic",
   },
   {
     description: "Small table",
-    jsx: <Table columns={fruitsSmallColumn} rows={fruitsSmallRows} />,
+    jsx: (
+      <Table
+        canSelect={true}
+        columns={fruitsSmallColumn}
+        rows={fruitsSmallRows}
+      />
+    ),
     title: "Small",
   },
 ];

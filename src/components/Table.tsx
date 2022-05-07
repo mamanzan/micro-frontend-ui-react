@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { ReactElement, useCallback, useState } from "react";
 import { IItem } from "../interface/interface";
 
 export enum SortDirection {
@@ -17,16 +17,28 @@ export interface ITableColumn {
 }
 export interface ITableColumnsProps {
   columns: ITableColumn[];
+  canEditOrDelete?: boolean;
+  canSelect?: boolean;
   sort?: (column: ITableColumn) => void;
 }
 
 export interface ITableRowsProps<T> {
   rows: Map<number, T>;
+  canDelete?: boolean;
+  canEdit?: boolean;
+  canSelect?: boolean;
 }
 
-interface ITableProps<T> extends ITableColumnsProps, ITableRowsProps<T> {}
+export interface ITableProps<T>
+  extends Omit<ITableColumnsProps, "canEditOrDelete" | "sort">,
+    Partial<ITableRowsProps<T>> {}
 
-const TableColumns = ({ columns, sort }: ITableColumnsProps) => {
+const TableColumns = ({
+  columns,
+  sort,
+  canEditOrDelete,
+  canSelect,
+}: ITableColumnsProps) => {
   const renderSortIcon = (column: ITableColumn) => {
     let result = null;
 
@@ -54,9 +66,16 @@ const TableColumns = ({ columns, sort }: ITableColumnsProps) => {
     return result;
   };
 
+  console.log("Render canEditOrDelete");
+  console.log(canEditOrDelete);
   return (
     <thead className="table__columns">
       <tr className="table__column-row">
+        {canSelect && (
+          <th className="table__column-cell">
+            <input type="checkbox" />
+          </th>
+        )}
         {columns.map((column: ITableColumn) => (
           <th
             className="table__column-cell"
@@ -67,28 +86,51 @@ const TableColumns = ({ columns, sort }: ITableColumnsProps) => {
             {renderSortIcon(column)}
           </th>
         ))}
+        {canEditOrDelete && <th className="table__column-cell">&nbsp;</th>}
       </tr>
     </thead>
   );
 };
 
-const TableRows = <T extends unknown>({ rows }: ITableRowsProps<T>) => {
+const TableRows = <T extends unknown>({
+  rows,
+  canEdit,
+  canDelete,
+  canSelect,
+}: ITableRowsProps<T>) => {
   return (
     <tbody className="table__rows">
       {Array.from(rows.entries()).map(([key, values]) => (
         <tr className="table__row" key={Math.random()}>
+          {canSelect && (
+            <td>
+              <input type="checkbox" />
+            </td>
+          )}
           {Object.entries(values).map(([key, value]) => (
             <td className="table__cell" key={Math.random()}>
               {value}
             </td>
           ))}
+          {(canEdit || canDelete) && (
+            <td>
+              {canEdit && <i className="oi" data-glyph="pencil"></i>}
+              {canDelete && <i className="oi" data-glyph="trash"></i>}
+            </td>
+          )}
         </tr>
       ))}
     </tbody>
   );
 };
 
-export const Table = <T extends unknown>({ columns, rows }: ITableProps<T>) => {
+export const Table = <T extends unknown>({
+  columns,
+  rows,
+  canEdit = false,
+  canDelete = false,
+  canSelect = false,
+}: ITableProps<T>): ReactElement => {
   const [allColumns, setAllColumns] = useState(columns);
   const [allRows, setAllRows] = useState(rows);
 
@@ -160,8 +202,13 @@ export const Table = <T extends unknown>({ columns, rows }: ITableProps<T>) => {
     <>
       <table className="table">
         <caption className="table__caption">Title</caption>
-        <TableColumns columns={allColumns} sort={sort} />
-        <TableRows rows={allRows} />
+        <TableColumns
+          columns={allColumns}
+          sort={sort}
+          canEditOrDelete={canEdit || canDelete}
+          canSelect={canSelect}
+        />
+        <TableRows {...{ rows: allRows, canSelect, canEdit, canDelete }} />
       </table>
     </>
   );
