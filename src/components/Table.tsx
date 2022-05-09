@@ -1,5 +1,4 @@
 import { ReactElement, useCallback, useState } from "react";
-import { IItem } from "../interface/interface";
 
 export enum SortDirection {
   ASCENDING = "ASCENDING",
@@ -9,37 +8,40 @@ export enum SortDirection {
 
 export type ColumnType = "int" | "float" | "string";
 
-export interface ITableColumn {
-  name: string;
+export interface ITableColumn<T> {
+  field: string;
   displayName?: string;
   sort: SortDirection;
   type: ColumnType;
+  customRender?: (item: T) => JSX.Element;
 }
-export interface ITableColumnsProps {
-  columns: ITableColumn[];
+
+export interface ITableColumnsProps<T> {
+  columns: ITableColumn<T>[];
   canEditOrDelete?: boolean;
   canSelect?: boolean;
-  sort?: (column: ITableColumn) => void;
+  sort?: (column: ITableColumn<T>) => void;
 }
 
 export interface ITableRowsProps<T> {
   rows: Map<number, T>;
+  columns: ITableColumn<T>[];
   canDelete?: boolean;
   canEdit?: boolean;
   canSelect?: boolean;
 }
 
 export interface ITableProps<T>
-  extends Omit<ITableColumnsProps, "canEditOrDelete" | "sort">,
-    Partial<ITableRowsProps<T>> {}
+  extends Omit<ITableColumnsProps<T>, "canEditOrDelete" | "sort">,
+    Omit<Partial<ITableRowsProps<T>>, "columns"> {}
 
-const TableColumns = ({
+const TableColumns = <T extends any>({
   columns,
   sort,
   canEditOrDelete,
   canSelect,
-}: ITableColumnsProps) => {
-  const renderSortIcon = (column: ITableColumn) => {
+}: ITableColumnsProps<T>) => {
+  const renderSortIcon = (column: ITableColumn<T>) => {
     let result = null;
 
     switch (column.sort) {
@@ -66,8 +68,6 @@ const TableColumns = ({
     return result;
   };
 
-  console.log("Render canEditOrDelete");
-  console.log(canEditOrDelete);
   return (
     <thead className="table__columns">
       <tr className="table__column-row">
@@ -76,13 +76,13 @@ const TableColumns = ({
             <input type="checkbox" />
           </th>
         )}
-        {columns.map((column: ITableColumn) => (
+        {columns.map((column: ITableColumn<T>) => (
           <th
             className="table__column-cell"
-            key={column.name}
+            key={column.field}
             onClick={() => (sort ? sort(column) : null)}
           >
-            {column.displayName ?? column.name}
+            {column.displayName ?? column.field}
             {renderSortIcon(column)}
           </th>
         ))}
@@ -92,24 +92,27 @@ const TableColumns = ({
   );
 };
 
-const TableRows = <T extends unknown>({
+const TableRows = <T extends any>({
   rows,
+  columns,
   canEdit,
   canDelete,
   canSelect,
 }: ITableRowsProps<T>) => {
   return (
     <tbody className="table__rows">
-      {Array.from(rows.entries()).map(([key, values]) => (
-        <tr className="table__row" key={Math.random()}>
+      {Array.from(rows.entries()).map(([rowKey, values]) => (
+        <tr className="table__row" key={rowKey}>
           {canSelect && (
             <td>
               <input type="checkbox" />
             </td>
           )}
-          {Object.entries(values).map(([key, value]) => (
-            <td className="table__cell" key={Math.random()}>
-              {value}
+          {columns.map((column: ITableColumn<T>, index: number) => (
+            <td className="table__cell" key={`${rowKey}-${index}`}>
+              {column.customRender
+                ? column.customRender(values)
+                : (values as any)[column.field]}
             </td>
           ))}
           {(canEdit || canDelete) && (
@@ -159,9 +162,9 @@ export const Table = <T extends unknown>({
     return _a > _b ? 1 : -1;
   };
 
-  const sort = (sortColumn: ITableColumn) => {
+  const sort = (sortColumn: ITableColumn<T>) => {
     const indexOfColumn = allColumns.findIndex(
-      (column: ITableColumn) => column.name === sortColumn.name
+      (column: ITableColumn<T>) => column.field === sortColumn.field
     );
     //Somehow this copy keeps state updated ?
     const updatedColumns = [...allColumns];
@@ -172,7 +175,7 @@ export const Table = <T extends unknown>({
         ? SortDirection.ASCENDING
         : SortDirection.DESCENDING;
 
-    updatedColumns.forEach((column: ITableColumn, i: number) => {
+    updatedColumns.forEach((column: ITableColumn<T>, i: number) => {
       column.sort = i === indexOfColumn ? column.sort : SortDirection.NONE;
     });
 
@@ -182,11 +185,11 @@ export const Table = <T extends unknown>({
         switch (column.sort) {
           case SortDirection.DESCENDING:
           case SortDirection.NONE:
-            result = comparison(a[1], b[1], column.name, column.type);
+            result = comparison(a[1], b[1], column.field, column.type);
             break;
           case SortDirection.ASCENDING:
           default:
-            result = comparison(b[1], a[1], column.name, column.type);
+            result = comparison(b[1], a[1], column.field, column.type);
             break;
         }
         return result;
@@ -208,7 +211,15 @@ export const Table = <T extends unknown>({
           canEditOrDelete={canEdit || canDelete}
           canSelect={canSelect}
         />
-        <TableRows {...{ rows: allRows, canSelect, canEdit, canDelete }} />
+        <TableRows
+          {...{
+            rows: allRows,
+            columns: allColumns,
+            canSelect,
+            canEdit,
+            canDelete,
+          }}
+        />
       </table>
     </>
   );

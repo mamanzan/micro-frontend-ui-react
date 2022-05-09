@@ -1,95 +1,123 @@
-import { Dropdown } from "../components/dropdowns/Dropdown";
-import { DropdownCheckbox } from "../components/dropdowns/DropdownCheckbox";
 import { ITableColumn, SortDirection, Table } from "../components/Table";
 import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
-import {
-  fruitItems,
-  fruitItemCheckboxes,
-  IFruitItem,
-  IFruitItemCheckbox,
-} from "../models/Fruits";
-import { Fruit } from "../template/Fruit";
-import { FruitDetails } from "../template/FruitDetails";
+import { fruitItems, IFruit, IFruitItem } from "../models/Fruits";
 import { randomizeIds } from "../utils/RandomizeIds";
 
 const defaultMessage = "Select a fruit";
 
 let fruits = randomizeIds(fruitItems);
+
+/*********************** STANDARD TABLE *****************************************/
 let columns = Object.entries(fruits[0]).map(([key]) => {
   return {
-    name: key,
+    field: key,
     displayName: key.charAt(0).toUpperCase() + key.slice(1),
     sort: SortDirection.NONE,
     type: "string",
   };
-}) as ITableColumn[];
-
-//type columns = keyof IFruitItem;
-//let columns = ["A", "B", "C"];
+}) as ITableColumn<IFruitItem>[];
 let rows = new Map<number, IFruitItem>();
 fruits.forEach((fruit: IFruitItem) => {
   rows.set(fruit.id as number, fruit);
 });
 
-//Order of this object determines on screen
-let fruitsSmall = randomizeIds(fruitItems).map((fruit: IFruitItem) => {
-  return {
-    id: fruit.id,
-    name: fruit.name,
-    price: fruit.price,
-    icon: fruit.icon,
-  };
-});
+const simpleTable: IComponentExampleConfiguration = {
+  description: "Standard table",
+  jsx: <Table columns={columns} rows={rows} />,
+  title: "Standard",
+};
 
-// let fruitsSmallColumn = Object.entries(fruits[0]).map(([key]) => {
-//   return { name: key, sort: SortDirection.ASCENDING, type: "string" };
-// }) as ITableColumn[];
-let fruitsSmallColumn: ITableColumn[] = [
-  { name: "id", displayName: "ID", sort: SortDirection.NONE, type: "int" },
+/*************************** SMALL & EDITABLE  ********************************/
+let smallAndEditableColumns: ITableColumn<IFruitItem>[] = [
+  { field: "id", displayName: "ID", sort: SortDirection.NONE, type: "int" },
   {
-    name: "name",
+    field: "name",
     displayName: "Name",
     sort: SortDirection.NONE,
     type: "string",
   },
   {
-    name: "price",
+    field: "price",
     displayName: "Price",
     sort: SortDirection.NONE,
     type: "float",
   },
   {
-    name: "icon",
+    field: "icon",
     displayName: "Icon",
     sort: SortDirection.NONE,
     type: "string",
   },
 ];
-let fruitsSmallRows = new Map<number, any>();
-fruitsSmall.forEach((fruit) => {
-  fruitsSmallRows.set(fruit.id as number, {
-    id: fruit.id,
-    name: fruit.name,
-    price: fruit.price,
-    icon: fruit.icon,
+let smallAndEditableRows = new Map<number, IFruitItem>();
+randomizeIds(fruitItems)
+  .slice(0, 3)
+  .forEach((fruit: IFruitItem) => {
+    smallAndEditableRows.set(fruit.id as number, fruit);
   });
-});
+const smallAndEditableTable: IComponentExampleConfiguration = {
+  description: "Small table",
+  jsx: (
+    <Table
+      canSelect={true}
+      canDelete={true}
+      canEdit={true}
+      columns={smallAndEditableColumns}
+      rows={smallAndEditableRows}
+    />
+  ),
+  title: "Small",
+};
+
+/************************Custom Render ****************************************/
+
+let customRenderColumns: ITableColumn<IFruitItem>[] = [
+  {
+    field: "name",
+    displayName: "Name",
+    sort: SortDirection.NONE,
+    type: "string",
+    customRender: (item: IFruitItem) => <i>{item.name}</i>,
+  },
+  {
+    field: "price",
+    displayName: "Price",
+    sort: SortDirection.NONE,
+    type: "float",
+    customRender: (item: IFruitItem) => (
+      <div style={{ color: item.price > 0.2 ? "red" : "green" }}>
+        ${item.price}
+      </div>
+    ),
+  },
+  {
+    field: "icon",
+    displayName: "Icon",
+    sort: SortDirection.NONE,
+    type: "string",
+    customRender: (item: IFruitItem) => (
+      <div>
+        {item.icon}
+        {item.icon}
+        {item.icon}
+      </div>
+    ),
+  },
+];
+let customRenderRows = new Map<number, IFruitItem>();
+randomizeIds(fruitItems)
+  .slice(0, 5)
+  .forEach((fruit: IFruitItem) => {
+    customRenderRows.set(fruit.id as number, fruit);
+  });
+const customRenderTable: IComponentExampleConfiguration = {
+  description: "Custom Render",
+  jsx: <Table columns={customRenderColumns} rows={customRenderRows} />,
+  title: "Custom",
+};
 
 export const Tables: IComponentExampleConfiguration[] = [
-  {
-    description: "Simple table",
-    jsx: <Table canEdit={true} columns={columns} rows={rows} />,
-    title: "Basic",
-  },
-  {
-    description: "Small table",
-    jsx: (
-      <Table
-        canSelect={true}
-        columns={fruitsSmallColumn}
-        rows={fruitsSmallRows}
-      />
-    ),
-    title: "Small",
-  },
+  simpleTable,
+  smallAndEditableTable,
+  customRenderTable,
 ];
