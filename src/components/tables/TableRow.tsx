@@ -1,30 +1,29 @@
-import { useEffect, useRef } from "react";
+import { IItem } from "../../interface/interface";
 import { ITableColumn } from "./TableColumns";
 
 export interface ITableRowProps<T> {
   item: T;
+  isSelected?: boolean;
   columns: ITableColumn<T>[];
   canDelete?: boolean;
   canEdit?: boolean;
   canSelect?: boolean;
-  isSelected?: boolean;
   onDeleteRow?: (item: T) => void;
   onEditRow?: (item: T) => void;
   onSelectRow?: (item: T) => void;
 }
 
-export const TableRow = <T extends any>({
+export const TableRow = <T extends IItem>({
   item,
-  canEdit,
+  isSelected = false,
   columns,
+  canEdit,
   canDelete,
   canSelect,
-  isSelected = false,
   onDeleteRow,
   onEditRow,
   onSelectRow,
 }: ITableRowProps<T>) => {
-  console.log("TableRow Render", isSelected);
   return (
     <tr className="table__row">
       {canSelect && (
@@ -38,7 +37,7 @@ export const TableRow = <T extends any>({
         </td>
       )}
       {columns.map((column: ITableColumn<T>, index: number) => (
-        <td className="table__cell" key={`${(item as any).id}-${index}`}>
+        <td className="table__cell" key={`${item.id}-${index}`}>
           {column.customRender
             ? column.customRender(item)
             : (item as any)[column.field]}

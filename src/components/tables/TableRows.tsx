@@ -1,3 +1,4 @@
+import { IItem } from "../../interface/interface";
 import { ITableRowProps, TableRow } from "./TableRow";
 
 export interface ITableRowsProps<T>
@@ -6,8 +7,9 @@ export interface ITableRowsProps<T>
   selectedRows: Map<number, boolean>;
 }
 
-export const TableRows = <T extends any>({
+export const TableRows = <T extends IItem>({
   rows,
+  selectedRows,
   columns,
   canEdit,
   canDelete,
@@ -15,7 +17,6 @@ export const TableRows = <T extends any>({
   onDeleteRow,
   onEditRow,
   onSelectRow,
-  selectedRows,
 }: ITableRowsProps<T>) => {
   return (
     <tbody>

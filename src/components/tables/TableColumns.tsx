@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { IItem } from "../../interface/interface";
 
 /* eslint-disable no-unused-vars */
 export enum SortDirection {
@@ -26,29 +27,14 @@ export interface ITableColumnsProps<T> {
   onSelectAll?: (enabled: boolean) => void;
 }
 
-export const TableColumns = <T extends any>({
+export const TableColumns = <T extends IItem>({
   columns,
   sort,
   canEditOrDelete,
   canSelect,
   onSelectAll,
-  isSelectingAll,
+  isSelectingAll = false,
 }: ITableColumnsProps<T>) => {
-  const checkboxRef = useRef(null);
-
-  useEffect(() => {
-    console.log("TableColumns useEffect[isSelectingAll]:", isSelectingAll);
-    if (checkboxRef.current) checkboxRef.current.checked = isSelectingAll;
-  }, [isSelectingAll]);
-
-  const selectAllEventHandler = () => {
-    const isSelectingAll = checkboxRef.current.checked;
-    console.log(
-      "TableColumns selectAllEventHandler() isSelectingAll: ",
-      isSelectingAll
-    );
-    onSelectAll(isSelectingAll);
-  };
   const renderSortIcon = (column: ITableColumn<T>) => {
     let result = null;
 
@@ -77,8 +63,8 @@ export const TableColumns = <T extends any>({
             <input
               className="form-check-input"
               type="checkbox"
-              ref={checkboxRef}
-              onClick={onSelectAll && (() => selectAllEventHandler())}
+              checked={isSelectingAll}
+              onChange={onSelectAll && (() => onSelectAll(isSelectingAll))}
             />
           </th>
         )}

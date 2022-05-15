@@ -31,11 +31,12 @@ export const Table = <T extends IItem>({
 }: ITableProps<T>): ReactElement => {
   const [allColumns /*setAllColumns*/] = useState(columns);
   const [allRows, setAllRows] = useState(rows);
-  const [isAutoSelectingAll, setIsAutoSelectingAll] = useState(false);
   const [isSelectingAll, setIsSelectingAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState(new Map<number, boolean>());
 
+  //Setup up al the 'selected states' of rows
   useEffect(() => {
+    if (!canSelect) return;
     const result = new Map(
       Array.from(rows.entries()).map(([rowkey]) => [rowkey, false])
     );
@@ -43,8 +44,10 @@ export const Table = <T extends IItem>({
     setSelectedRows(result);
   }, [rows]);
 
+  //Determine if the "Select All" option should be auto-selected
   useEffect(() => {
     let isAllSelected = true;
+    //TODO regular for loop to break early.
     selectedRows.forEach((value: boolean) => {
       if (value === false) isAllSelected = false;
     });
@@ -121,35 +124,23 @@ export const Table = <T extends IItem>({
 
   //This will fire when the top-level select all is clicked
   const selectAll = (enabled: boolean) => {
-    console.log("Table selectAll() enabled:", enabled);
-    setIsSelectingAll(enabled);
-    //setAutoSelectAll(enabled);
+    setIsSelectingAll(!enabled);
     setSelectedRows((prevState: Map<number, boolean>) => {
       const newState = new Map(
-        Array.from(prevState.entries()).map(([key]) => [key, enabled])
+        Array.from(prevState.entries()).map(([key]) => [key, !enabled])
       );
-      console.log("After Select All update", newState);
       return newState;
     });
-    //callbcack for outside of this component.
-    if (onSelectAll) onSelectAll(enabled);
+    //callbcack for the outside world.
+    if (onSelectAll) onSelectAll(!enabled);
   };
 
   //Need to capture select row here to potentially turn off 'selectAll' checkbox
   const selectRow = (item: T): void => {
-    //If any one row is de-selected, need to uncheck the 'Select All' checkbox.
-    // if (!isSelected) {
-    setIsSelectingAll(false);
-    //setAutoSelectAll(false);
-    // }
-    console.log("Before update", selectedRows);
     const key = item.id as number;
     const isSelected = selectedRows.get(key);
-    const newSelections = new Map(selectedRows);
-    newSelections.set(key, !isSelected);
-    console.log("After update", newSelections);
-    setSelectedRows(newSelections);
-
+    const updatedSelectedRows = new Map(selectedRows).set(key, !isSelected);
+    setSelectedRows(updatedSelectedRows);
     if (onSelectRow) onSelectRow(item);
   };
 
@@ -170,13 +161,13 @@ export const Table = <T extends IItem>({
         {...{
           rows: allRows,
           columns: allColumns,
+          selectedRows,
           canSelect,
           canEdit,
           canDelete,
           onDeleteRow,
           onEditRow,
           onSelectRow: selectRow,
-          selectedRows,
         }}
       />
     </table>
