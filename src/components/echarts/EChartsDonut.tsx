@@ -38,14 +38,10 @@ export const EChartsDonut = <T extends any>({
                 data: Array.from(data.values()),
                 label: {
                   position: "inner",
-                  //   formatter: (params) => {
-                  //     console.log(params);
-
-                  //     return "1";
-                  //   },
                   formatter: (params) => {
-                    console.log(params);
-                    return labelFormatter(params.data as any);
+                    const { item } = params.data as any;
+                    console.log(item);
+                    return labelFormatter(item as T);
                   },
                 },
               },
