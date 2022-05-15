@@ -1,5 +1,6 @@
 import { Test } from "../components/checkboxList/checkboxList";
 import { ReactECharts } from "../components/echarts/ECharts";
+import { EChartsDonut } from "../components/echarts/EChartsDonut";
 import { EChartsTest } from "../components/echarts/EChartsTest";
 import { Table } from "../components/tables/Table";
 import { ITableColumn, SortDirection } from "../components/tables/TableColumns";
@@ -18,6 +19,16 @@ const fruitRows = new Map<number, IFruitItem>(
   randomizeIds(fruitItems).map((value: IFruitItem) => [
     value.id as number,
     value,
+  ])
+);
+
+const fruitMap = new Map<
+  string,
+  { name: string; value: number; item: IFruitItem }
+>(
+  randomizeIds(fruitItems).map((value: IFruitItem) => [
+    value.name,
+    { name: value.name, value: value.quantity, item: value },
   ])
 );
 
@@ -64,5 +75,20 @@ export const CheckboxList: IComponentExampleConfiguration[] = [
     description: "ECharts",
     jsx: <EChartsTest />,
     title: "ECharts",
+  },
+  {
+    description: "ECharts Donut",
+    jsx: (
+      <EChartsDonut
+        data={fruitMap}
+        height={"500px"}
+        width={"500px"}
+        title="Fruits"
+        labelFormatter={(item: any) => {
+          return "1";
+        }}
+      />
+    ),
+    title: "Donut",
   },
 ];

@@ -1,4 +1,4 @@
-import { HighchartsDonut } from "../components/HighchartsDonut";
+import { HighchartsDonut } from "../components/highcharts/HighchartsDonut";
 import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
 import {
   defaultHighchartsDonutProps,

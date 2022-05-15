@@ -1,18 +1,19 @@
 import {
   GridComponentOption,
+  TitleComponentOption,
   XAXisComponentOption,
   YAXisComponentOption,
 } from "echarts";
 
 export const EChartGrid = (
   seriesNames: string[],
-  top: number = 50,
-  right: number = 40,
-  bottom: number = 60,
-  left: number = 40
+  top: number = 0,
+  right: number = 0,
+  bottom: number = 0,
+  left: number = 0
 ): GridComponentOption => {
   let maxWidth = 0;
-  if (!seriesNames || seriesNames.length === 0) maxWidth = 80;
+  if (!seriesNames || seriesNames.length === 0) maxWidth = 0;
 
   let div = document.createElement("div");
   div.style.display = "inline";
@@ -32,11 +33,34 @@ export const EChartGrid = (
   document.body.removeChild(div);
 
   return {
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
+    show: true,
     top,
     right: right + maxWidth,
     bottom,
     left,
+    borderColor: "#cccccc",
+  };
+};
+
+export const EChartTitle = (
+  titleText: () => string,
+  maxWidth?: number
+): TitleComponentOption => {
+  return {
+    text: titleText(),
+    left: 0,
+    top: 0,
+    textStyle: {
+      //fontFamily: "Intel One Text",
+      fontSize: 18,
+      fontWeight: 600,
+      //color: isDarkMode ? 'white' : 'black',
+      color: "black",
+      width: maxWidth,
+      ellipsis: "...",
+      overflow: "breakAll",
+    } as any,
   };
 };
 

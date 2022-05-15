@@ -1,12 +1,12 @@
 import * as Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { useRef } from "react";
-import { IHighchartsDonutProps } from "../interface/Highcharts";
+import { IHighchartsDonutProps } from "../../interface/Highcharts";
 import {
   HighchartsGeneral,
   HighchartsLegend,
   HighchartsTitle,
-} from "../utils/HighChartsOptions";
+} from "../../utils/HighChartsOptions";
 
 export const HighchartsDonut = ({
   height,
