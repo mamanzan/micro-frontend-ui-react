@@ -10,6 +10,7 @@ const routes: IRouteLink[] = [
   { name: "Toggles", route: "/react/components/toggles" },
   { name: "Tables", route: "/react/components/tables" },
   { name: "Highcharts", route: "/react/components/highcharts" },
+  { name: "Checkboxes", route: "/react/components/checkboxes" },
 ];
 export const Sidebar = () => (
   <nav className="sidebar">
