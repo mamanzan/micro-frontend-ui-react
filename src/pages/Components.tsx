@@ -8,7 +8,7 @@ import { Toggles } from "../component-examples/Toggles";
 import { Tables } from "../component-examples/Tables";
 import { Highcharts } from "../component-examples/Highcharts";
 import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
-import { CheckboxList } from "../component-examples/CheckboxList";
+import { CheckboxList } from "../component-examples/Sandbox";
 
 interface ComponenProps {
   description: string;

@@ -1,4 +1,6 @@
 import { Test } from "../components/checkboxList/checkboxList";
+import { ReactECharts } from "../components/echarts/ECharts";
+import { EChartsTest } from "../components/echarts/EChartsTest";
 import { Table } from "../components/tables/Table";
 import { ITableColumn, SortDirection } from "../components/tables/TableColumns";
 import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
@@ -46,14 +48,6 @@ const fruitColumns: ITableColumn<IFruit>[] = [
     sort: SortDirection.NONE,
   },
 ];
-// const fruitRows = new Map<number, IFruit>();
-// fruitRows.set(1, { id: 1, value: "kiwi", icon: "🥝", name: "Kiwi" });
-// fruitRows.set(2, {
-//   id: 2,
-//   value: "strawberry",
-//   icon: "🍓",
-//   name: "Strawberry",
-// });
 
 export const CheckboxList: IComponentExampleConfiguration[] = [
   {
@@ -65,5 +59,10 @@ export const CheckboxList: IComponentExampleConfiguration[] = [
     description: "Checkbox Table",
     jsx: <Table columns={fruitColumns} rows={fruitRows} canSelect={true} />,
     title: "Checkbox Table",
+  },
+  {
+    description: "ECharts",
+    jsx: <EChartsTest />,
+    title: "ECharts",
   },
 ];
