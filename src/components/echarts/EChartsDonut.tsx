@@ -1,11 +1,9 @@
 import { useState } from "react";
-import { IEChartsDonutProps } from "../../interface/ECharts";
 import {
-  EChartGrid,
-  EChartTitle,
-  EChartXAxisByCategory,
-  EChartYAxisByValue,
-} from "./EChartOptions";
+  IEChartDonutSeriesItem,
+  IEChartsDonutProps,
+} from "../../interface/ECharts";
+import { EChartGrid, EChartTitle } from "./EChartOptions";
 import { ReactECharts } from "./ECharts";
 
 export const EChartsDonut = <T extends any>({
@@ -38,11 +36,13 @@ export const EChartsDonut = <T extends any>({
                 data: Array.from(data.values()),
                 label: {
                   position: "inner",
-                  formatter: (params) => {
-                    const { item } = params.data as any;
-                    console.log(item);
-                    return labelFormatter(item as T);
-                  },
+                  formatter:
+                    labelFormatter &&
+                    ((params) => {
+                      const { item } = params.data as any;
+                      console.log(item);
+                      return labelFormatter(item as T);
+                    }),
                 },
               },
             ],

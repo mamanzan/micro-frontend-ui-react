@@ -92,9 +92,9 @@ export const CheckboxList: IComponentExampleConfiguration[] = [
         height={"500px"}
         width={"500px"}
         title="Fruits"
-        labelFormatter={(fruit: IFruitItem) => {
-          return `${fruit.icon} (${fruit.quantity})`;
-        }}
+        // labelFormatter={(fruit: IFruitItem) => {
+        //   return `${fruit.icon} (${fruit.quantity})`;
+        // }}
       />
     ),
     title: "Donut",

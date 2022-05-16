@@ -9,5 +9,5 @@ export interface IEChartsDonutProps<T> {
   height?: string;
   width?: string; //by default will fit into parent container, only set if you want explicit height
   title?: string;
-  labelFormatter: (item: T) => string;
+  labelFormatter?: (item: T) => string;
 }
