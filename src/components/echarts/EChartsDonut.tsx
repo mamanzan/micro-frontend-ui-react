@@ -3,7 +3,8 @@ import {
   IEChartDonutSeriesItem,
   IEChartsDonutProps,
 } from "../../interface/ECharts";
-import { EChartGrid, EChartTitle } from "./EChartOptions";
+import { EChartGrid, EChartTitle } from "../../utils/EChartsOptions";
+
 import { ReactECharts } from "./ECharts";
 
 export const EChartsDonut = <T extends any>({
@@ -33,7 +34,12 @@ export const EChartsDonut = <T extends any>({
               {
                 type: "pie",
                 radius: ["50%", "80%"],
-                data: Array.from(data.values()),
+                data: Array.from(data.values()).map(
+                  (value: IEChartDonutSeriesItem<T>) => ({
+                    ...value,
+                    itemStyle: { color: value.color },
+                  })
+                ),
                 label: {
                   position: "inner",
                   formatter:

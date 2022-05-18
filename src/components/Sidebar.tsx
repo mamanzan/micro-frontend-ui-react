@@ -5,12 +5,13 @@ interface IRouteLink {
   name: string;
 }
 const routes: IRouteLink[] = [
-  { name: "Dropdowns", route: "/react/components/dropdown" },
+  { name: "Dropdowns", route: "/react/components/dropdowns" },
   { name: "Text Fields", route: "/react/components/textfields" },
   { name: "Toggles", route: "/react/components/toggles" },
   { name: "Tables", route: "/react/components/tables" },
   { name: "Highcharts", route: "/react/components/highcharts" },
-  { name: "Checkboxes", route: "/react/components/checkboxes" },
+  { name: "ECharts", route: "/react/components/echarts" },
+  { name: "Sandbox", route: "/react/components/sandbox" },
 ];
 export const Sidebar = () => (
   <nav className="sidebar">

@@ -1,6 +1,7 @@
 export interface IEChartDonutSeriesItem<T> {
   name: string;
   value: number;
+  color: string;
   item: T;
 }
 

@@ -1,5 +1,4 @@
 import { Test } from "../components/checkboxList/checkboxList";
-import { ReactECharts } from "../components/echarts/ECharts";
 import { EChartsDonut } from "../components/echarts/EChartsDonut";
 import { EChartsTest } from "../components/echarts/EChartsTest";
 import { Table } from "../components/tables/Table";
@@ -8,6 +7,7 @@ import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
 import { IEChartDonutSeriesItem } from "../interface/ECharts";
 import { IItem } from "../interface/interface";
 import { fruitItems, IFruitItem } from "../models/Fruits";
+import { EChartsColorSet } from "../utils/EChartsOptions";
 import { randomizeIds } from "../utils/RandomizeIds";
 
 interface IFruit extends IItem {
@@ -23,20 +23,16 @@ const fruitRows = new Map<number, IFruitItem>(
   ])
 );
 
-const fruitMap = new Map<
-  string,
-  { name: string; value: number; item: IFruitItem }
->(
-  randomizeIds(fruitItems).map((value: IFruitItem) => [
+const fruitMap = new Map<string, IEChartDonutSeriesItem<IFruitItem>>(
+  randomizeIds(fruitItems).map((value: IFruitItem, index: number) => [
     value.name,
-    { name: value.name, value: value.quantity, item: value },
-  ])
-);
-
-const fruitMap2 = new Map<string, IEChartDonutSeriesItem<IFruitItem>>(
-  randomizeIds(fruitItems).map((value: IFruitItem) => [
-    value.name,
-    { name: value.name, value: value.quantity, item: value },
+    {
+      name: value.name,
+      value: value.quantity,
+      item: value,
+      id: index,
+      color: EChartsColorSet[index % EChartsColorSet.length],
+    },
   ])
 );
 
@@ -88,13 +84,13 @@ export const CheckboxList: IComponentExampleConfiguration[] = [
     description: "ECharts Donut",
     jsx: (
       <EChartsDonut
-        data={fruitMap2}
+        data={fruitMap}
         height={"500px"}
         width={"500px"}
         title="Fruits"
-        // labelFormatter={(fruit: IFruitItem) => {
-        //   return `${fruit.icon} (${fruit.quantity})`;
-        // }}
+        labelFormatter={(fruit: IFruitItem) => {
+          return `${fruit.icon} (${fruit.quantity})`;
+        }}
       />
     ),
     title: "Donut",

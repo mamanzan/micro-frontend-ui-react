@@ -3,7 +3,8 @@ import {
   EChartGrid,
   EChartXAxisByCategory,
   EChartYAxisByValue,
-} from "./EChartOptions";
+} from "../../utils/EChartsOptions";
+
 import { ReactECharts } from "./ECharts";
 
 export const EChartsTest = () => {

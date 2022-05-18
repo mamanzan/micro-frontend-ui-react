@@ -7,6 +7,7 @@ import { TextFields } from "../component-examples/TextFields";
 import { Toggles } from "../component-examples/Toggles";
 import { Tables } from "../component-examples/Tables";
 import { Highcharts } from "../component-examples/Highcharts";
+import { ECharts } from "../component-examples/ECharts";
 import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
 import { CheckboxList } from "../component-examples/Sandbox";
 
@@ -55,14 +56,19 @@ export const Components = () => {
       examples = Highcharts;
       humanizeTitle = "Highcharts";
       break;
-    case "checkboxes":
-      examples = CheckboxList;
-      humanizeTitle = "Checkboxes";
+    case "echarts":
+      examples = ECharts;
+      humanizeTitle = "ECharts";
       break;
     case "dropdowns":
-    default:
       examples = Dropdowns;
       humanizeTitle = "Dropdowns";
+      break;
+    case "sandbox":
+    default:
+      examples = CheckboxList;
+      humanizeTitle = "Sandbox";
+
       break;
   }
 

@@ -123,3 +123,19 @@ export const EChartYAxisByValue = (
     },
   };
 };
+
+export const EChartsColorSet = [
+  "#0068b5", //classic-blue
+  "#8bae46", //moss
+  "#edb200", //daisy shade1
+  "#8f5da2", //geode
+  "#e96115", //rust
+  "#00c7fd", //energy blue
+  "#548fad", //blue steel
+  "#1e2eb8", //cobalt
+  "#808080", //carbon
+  "#fec91b", //daisy
+  "#004a86", //classic-blue shade 1
+  "#ff5662", //coral
+  "#c81326", //coral shade 2
+];
