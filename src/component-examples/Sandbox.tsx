@@ -4,7 +4,10 @@ import { EChartsTest } from "../components/echarts/EChartsTest";
 import { Table } from "../components/tables/Table";
 import { ITableColumn, SortDirection } from "../components/tables/TableColumns";
 import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
-import { IEChartDonutSeriesItem } from "../interface/ECharts";
+import {
+  IEChartDonutSeries,
+  IEChartDonutSeriesItem,
+} from "../interface/ECharts";
 import { IItem } from "../interface/interface";
 import { fruitItems, IFruitItem } from "../models/Fruits";
 import { EChartsColorSet } from "../utils/EChartsOptions";
@@ -35,6 +38,12 @@ const fruitMap = new Map<string, IEChartDonutSeriesItem<IFruitItem>>(
     },
   ])
 );
+const fruitMapSeries: IEChartDonutSeries<IFruitItem>[] = [
+  {
+    data: fruitMap,
+    radius: ["50%", "70%"],
+  },
+];
 
 const fruitColumns: ITableColumn<IFruit>[] = [
   {
@@ -84,13 +93,10 @@ export const CheckboxList: IComponentExampleConfiguration[] = [
     description: "ECharts Donut",
     jsx: (
       <EChartsDonut
-        data={fruitMap}
+        series={fruitMapSeries}
         height={"500px"}
         width={"500px"}
         title="Fruits"
-        labelFormatter={(fruit: IFruitItem) => {
-          return `${fruit.icon} (${fruit.quantity})`;
-        }}
       />
     ),
     title: "Donut",

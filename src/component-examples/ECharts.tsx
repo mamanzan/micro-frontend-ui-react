@@ -1,26 +1,26 @@
 import { EChartsDonut } from "../components/echarts/EChartsDonut";
 import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
 import {
+  IEChartDonutSeries,
   IEChartDonutSeriesItem,
   IEChartsDonutProps,
 } from "../interface/ECharts";
 
 import { fruits, IFruit, IFruitItem } from "../models/Fruits";
 import { EChartsColorSet } from "../utils/EChartsOptions";
-import { HighchartsColorSet } from "../utils/HighChartsOptions";
 
-const props1: IEChartsDonutProps<IFruitItem> = {
+const series1: IEChartDonutSeries<IFruitItem> = {
   data: new Map<string, IEChartDonutSeriesItem<IFruitItem>>(),
-  title: "4 Fruits",
+  radius: ["50%", "80%"],
 };
-const props2: IEChartsDonutProps<IFruitItem> = {
+const series2: IEChartDonutSeries<IFruitItem> = {
   data: new Map<string, IEChartDonutSeriesItem<IFruitItem>>(),
-  title: "3 Fruits",
+  radius: ["10%", "40%"],
+  labelFormatter: (item: IFruitItem) => `${item.icon} ${item.price}`,
 };
 
 fruits.slice(0, 4).forEach((fruit: IFruit, index: number) => {
-  const y = Math.floor(Math.random() * 100);
-  props1.data.set(fruit.name, {
+  series1.data.set(fruit.name, {
     name: fruit.icon,
     item: { ...fruit, id: index, value: fruit.name },
     value: fruit.quantity,
@@ -29,7 +29,7 @@ fruits.slice(0, 4).forEach((fruit: IFruit, index: number) => {
 });
 
 fruits.slice(2, 7).forEach((fruit: IFruit, index: number) => {
-  props2.data.set(fruit.name, {
+  series2.data.set(fruit.name, {
     name: fruit.icon,
     item: { ...fruit, id: index, value: fruit.name },
     value: fruit.price,
@@ -38,6 +38,20 @@ fruits.slice(2, 7).forEach((fruit: IFruit, index: number) => {
 });
 
 const size: string = "400px";
+const props1: IEChartsDonutProps<IFruitItem> = {
+  series: [series1],
+  height: size,
+  width: size,
+  title: "1 Donut",
+};
+
+const props2: IEChartsDonutProps<IFruitItem> = {
+  series: [series1, series2],
+  height: size,
+  width: size,
+  title: "2 Donut",
+};
+
 export const ECharts: IComponentExampleConfiguration[] = [
   {
     description: "Donut1",
@@ -46,16 +60,7 @@ export const ECharts: IComponentExampleConfiguration[] = [
   },
   {
     description: "Donut2",
-    jsx: (
-      <EChartsDonut
-        {...props2}
-        height={size}
-        width={size}
-        labelFormatter={(fruit: IFruitItem) => {
-          return `${fruit.icon} $${fruit.price}`;
-        }}
-      />
-    ),
+    jsx: <EChartsDonut {...props2} height={size} width={size} />,
     title: "Donut2",
   },
 ];

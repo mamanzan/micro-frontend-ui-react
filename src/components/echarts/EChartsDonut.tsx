@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  IEChartDonutSeries,
   IEChartDonutSeriesItem,
   IEChartsDonutProps,
 } from "../../interface/ECharts";
@@ -8,11 +9,10 @@ import { EChartGrid, EChartTitle } from "../../utils/EChartsOptions";
 import { ReactECharts } from "./ECharts";
 
 export const EChartsDonut = <T extends any>({
-  data,
+  series,
   height = "100%",
   width = "100%",
   title,
-  labelFormatter,
 }: IEChartsDonutProps<T>) => {
   const [isLoading, setIsLoading] = useState(false);
   return (
@@ -30,11 +30,11 @@ export const EChartsDonut = <T extends any>({
               left: "center",
               top: "bottom",
             },
-            series: [
-              {
+            series: series.map((serie: IEChartDonutSeries<T>) => {
+              return {
                 type: "pie",
-                radius: ["50%", "80%"],
-                data: Array.from(data.values()).map(
+                radius: serie.radius,
+                data: Array.from(serie.data.values()).map(
                   (value: IEChartDonutSeriesItem<T>) => ({
                     ...value,
                     itemStyle: { color: value.color },
@@ -43,15 +43,15 @@ export const EChartsDonut = <T extends any>({
                 label: {
                   position: "inner",
                   formatter:
-                    labelFormatter &&
+                    serie.labelFormatter &&
                     ((params) => {
                       const { item } = params.data as any;
                       console.log(item);
-                      return labelFormatter(item as T);
+                      return serie.labelFormatter(item as T);
                     }),
                 },
-              },
-            ],
+              };
+            }),
           }}
         />
       </div>
