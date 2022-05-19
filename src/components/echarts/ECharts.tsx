@@ -22,6 +22,7 @@ export function ReactECharts({
   const chartRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    console.log("Next theme:", theme);
     // Initialize chart
     let chart: ECharts | undefined;
     if (chartRef.current !== null) {

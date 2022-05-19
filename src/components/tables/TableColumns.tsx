@@ -40,10 +40,22 @@ export const TableColumns = <T extends IItem>({
 
     switch (column.sort) {
       case SortDirection.ASCENDING:
-        result = <i className="bi bi-sort-up-alt"></i>;
+        result = (
+          <span
+            className="oi"
+            data-glyph="sort-ascending"
+            style={{ width: "20px", display: "inline-block" }}
+          ></span>
+        );
         break;
       case SortDirection.DESCENDING:
-        result = <i className="bi bi-sort-down"></i>;
+        result = (
+          <span
+            className="oi"
+            data-glyph="sort-descending"
+            style={{ width: "20px", display: "inline-block" }}
+          ></span>
+        );
         break;
       case SortDirection.NONE:
       default:

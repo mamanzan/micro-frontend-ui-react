@@ -18,7 +18,7 @@ export const EChartsTest = () => {
         <ReactECharts
           loading={isLoading}
           option={{
-            grid: { ...EChartGrid([]), backgroundColor: "rgb(255,255,255)" },
+            grid: { ...EChartGrid(), backgroundColor: "rgb(255,255,255)" },
             xAxis: {
               ...EChartXAxisByCategory([
                 "Mon",

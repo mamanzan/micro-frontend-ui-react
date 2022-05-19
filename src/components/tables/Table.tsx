@@ -146,7 +146,7 @@ export const Table = <T extends IItem>({
 
   return (
     <table className="table" data-cy={dataCy}>
-      <caption className="ps-2" data-cy="title">
+      <caption className="table__caption" data-cy="title">
         {title}
       </caption>
       <TableColumns

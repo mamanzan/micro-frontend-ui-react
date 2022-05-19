@@ -21,7 +21,7 @@ const series2: IEChartDonutSeries<IFruitItem> = {
 
 fruits.slice(0, 4).forEach((fruit: IFruit, index: number) => {
   series1.data.set(fruit.name, {
-    name: fruit.icon,
+    name: fruit.name,
     item: { ...fruit, id: index, value: fruit.name },
     value: fruit.quantity,
     color: EChartsColorSet[index % EChartsColorSet.length],
@@ -37,7 +37,7 @@ fruits.slice(2, 7).forEach((fruit: IFruit, index: number) => {
   });
 });
 
-const size: string = "400px";
+const size: string = "300px";
 const props1: IEChartsDonutProps<IFruitItem> = {
   series: [series1],
   height: size,

@@ -27,7 +27,7 @@ export const TableRow = <T extends IItem>({
   return (
     <tr className="table__row">
       {canSelect && (
-        <td>
+        <td className="table__cell">
           <input
             className="form-check-input"
             type="checkbox"
@@ -44,13 +44,13 @@ export const TableRow = <T extends IItem>({
         </td>
       ))}
       {(canEdit || canDelete) && (
-        <td>
+        <td className="table__cell">
           {canEdit && (
             <button
               className="mx-1 border-0 btn btn-sm"
               onClick={onEditRow && (() => onEditRow(item))}
             >
-              <i className="bi bi-pencil-fill"></i>
+              <span className="oi" data-glyph="pencil"></span>
             </button>
           )}
           {canDelete && (
@@ -58,7 +58,7 @@ export const TableRow = <T extends IItem>({
               className="mx-1 border-0 btn btn-sm "
               onClick={onDeleteRow && (() => onDeleteRow(item))}
             >
-              <i className="bi bi-trash-fill"></i>
+              <span className="oi" data-glyph="trash"></span>
             </button>
           )}
         </td>

@@ -1,9 +1,8 @@
-import { ITableColumn, SortDirection, Table } from "../components/Table";
+import { Table } from "../components/tables/Table";
+import { ITableColumn, SortDirection } from "../components/tables/TableColumns";
 import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
 import { fruitItems, IFruit, IFruitItem } from "../models/Fruits";
 import { randomizeIds } from "../utils/RandomizeIds";
-
-const defaultMessage = "Select a fruit";
 
 let fruits = randomizeIds(fruitItems);
 

@@ -1,62 +1,45 @@
 import {
   GridComponentOption,
+  LegendComponentOption,
+  registerTheme,
   TitleComponentOption,
   XAXisComponentOption,
   YAXisComponentOption,
 } from "echarts";
 
+const lightTheme = require("./EChartsThemeLight.json");
+const darkTheme = require("./EChartsThemeDark.json");
+
+registerTheme("light", lightTheme);
+registerTheme("dark", darkTheme);
+
+//If you had multiple separate charts, this can control the sizes of each.
 export const EChartGrid = (
-  seriesNames: string[],
   top: number = 0,
   right: number = 0,
   bottom: number = 0,
   left: number = 0
 ): GridComponentOption => {
-  let maxWidth = 0;
-  if (!seriesNames || seriesNames.length === 0) maxWidth = 0;
-
-  let div = document.createElement("div");
-  div.style.display = "inline";
-  div.style.height = "0px";
-  div.style.fontFamily = "Intel One Text";
-  div.style.margin = "0px";
-  div.style.padding = "0px";
-  div.style.fontSize = "12px";
-  document.body.appendChild(div);
-  seriesNames.forEach((name) => {
-    //inject into a fake div to see how big it would be on screen.
-    div.innerHTML = name;
-    const { width } = div.getBoundingClientRect();
-    if (width > maxWidth) maxWidth = width;
-  });
-
-  document.body.removeChild(div);
-
   return {
-    backgroundColor: "#ffffff",
     show: true,
     top,
-    right: right + maxWidth,
+    right,
     bottom,
     left,
-    borderColor: "#cccccc",
   };
 };
 
 export const EChartTitle = (
-  titleText: () => string,
+  text: string = "<Title>",
   maxWidth?: number
 ): TitleComponentOption => {
   return {
-    text: titleText(),
+    text,
     left: 0,
     top: 0,
     textStyle: {
-      //fontFamily: "Intel One Text",
-      fontSize: 18,
-      fontWeight: 600,
-      //color: isDarkMode ? 'white' : 'black',
-      color: "black",
+      fontSize: 24,
+      fontWeight: 100,
       width: maxWidth,
       ellipsis: "...",
       overflow: "breakAll",
@@ -122,6 +105,43 @@ export const EChartYAxisByValue = (
       color: "black",
     },
   };
+};
+
+export const EChartsLegend = (
+  orientation: "horizontal" | "vertical" = "horizontal"
+): LegendComponentOption => {
+  let options: LegendComponentOption = {
+    show: true,
+    symbolKeepAspect: true,
+    selectedMode: true,
+    itemHeight: 8,
+    itemWidth: 8,
+    itemGap: 12,
+    orient: orientation,
+    icon: "rect",
+    type: "scroll",
+    //align: 'left',
+    //left: 0,
+    // right: 10,
+    // top: 0,
+    //bottom: 30,
+    // width: "100%",
+    textStyle: {
+      fontSize: 12,
+    },
+  };
+  switch (orientation) {
+    case "vertical":
+      break;
+    case "horizontal":
+      // options.left = 0;
+      // options.right = 0;
+      options.top = 10;
+      options.align = "auto";
+    default:
+      break;
+  }
+  return options;
 };
 
 export const EChartsColorSet = [
