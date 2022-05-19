@@ -116,7 +116,7 @@ export const EChartsLegend = (
     selectedMode: true,
     itemHeight: 8,
     itemWidth: 8,
-    itemGap: 12,
+    itemGap: 8,
     orient: orientation,
     icon: "rect",
     type: "scroll",
