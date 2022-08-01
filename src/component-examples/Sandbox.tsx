@@ -2,6 +2,7 @@ import { Test } from "../components/checkboxList/checkboxList";
 import { EChartsDonut } from "../components/echarts/EChartsDonut";
 import { EChartsTest } from "../components/echarts/EChartsTest";
 import { Table } from "../components/tables/Table";
+import { SquareSpinner } from "../components/spinners/SquareSpinner";
 import { ITableColumn, SortDirection } from "../components/tables/TableColumns";
 import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
 import {
@@ -99,6 +100,11 @@ export const CheckboxList: IComponentExampleConfiguration[] = [
         title="Fruits"
       />
     ),
+    title: "Donut",
+  },
+  {
+    description: "Square Spinner",
+    jsx: <SquareSpinner />,
     title: "Donut",
   },
 ];
