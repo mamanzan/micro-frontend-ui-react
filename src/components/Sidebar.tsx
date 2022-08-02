@@ -11,6 +11,7 @@ const routes: IRouteLink[] = [
   { name: "Tables", route: "/react/components/tables" },
   { name: "Highcharts", route: "/react/components/highcharts" },
   { name: "ECharts", route: "/react/components/echarts" },
+  { name: "Spinners", route: "/react/components/spinners" },
   { name: "Sandbox", route: "/react/components/sandbox" },
 ];
 export const Sidebar = () => (

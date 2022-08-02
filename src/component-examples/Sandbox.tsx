@@ -13,6 +13,7 @@ import { IItem } from "../interface/interface";
 import { fruitItems, IFruitItem } from "../models/Fruits";
 import { EChartsColorSet } from "../utils/EChartsOptions";
 import { randomizeIds } from "../utils/RandomizeIds";
+import { SquareSpinnerSvg } from "../components/spinners/SquareSpinnerSvg";
 
 interface IFruit extends IItem {
   icon: string;
@@ -105,6 +106,11 @@ export const CheckboxList: IComponentExampleConfiguration[] = [
   {
     description: "Square Spinner",
     jsx: <SquareSpinner />,
+    title: "Donut",
+  },
+  {
+    description: "Square Spinner",
+    jsx: <SquareSpinnerSvg />,
     title: "Donut",
   },
 ];

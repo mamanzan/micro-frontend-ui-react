@@ -10,6 +10,7 @@ import { Highcharts } from "../component-examples/Highcharts";
 import { ECharts } from "../component-examples/ECharts";
 import { IComponentExampleConfiguration } from "../interface/ComponentExamples";
 import { CheckboxList } from "../component-examples/Sandbox";
+import { Spinners } from "../component-examples/Spinners";
 
 interface ComponenProps {
   description: string;
@@ -21,17 +22,6 @@ interface ComponenProps {
 interface ComponentRouteParams {
   type: string;
 }
-
-// const mah = lazy(async () =>
-//   await (import('../component-examples/Dropdowns').));
-
-// const NextComponent = lazy(() =>
-//   import("../component-examples/Dropdowns").then(({ Dropdowns }) => ({
-//     default: Dropdowns,
-//   }))
-// );
-
-//const NextComponent = lazy(() => import("../component-examples/Dropdowns"));
 
 export const Components = () => {
   let { type } = useParams<ComponentRouteParams>();
@@ -63,6 +53,10 @@ export const Components = () => {
     case "dropdowns":
       examples = Dropdowns;
       humanizeTitle = "Dropdowns";
+      break;
+    case "spinners":
+      examples = Spinners;
+      humanizeTitle = "Spinners";
       break;
     case "sandbox":
     default:
